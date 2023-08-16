@@ -1,0 +1,70 @@
+﻿@model List<TorneioLuta.Models.Lutador>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/css/site.css" /> 
+    <style>
+        /* Definição da classe para a imagem de fundo */
+        .background-image {
+            background-image: url('img/FundoTela/fundotela.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body class="background-image">
+    <div class="container">
+        <h2>Selecione os Participantes do Torneio</h2>
+
+        @if (ViewData["MensagemErro"] != null)
+        {
+                <p class="text-danger">@ViewData["MensagemErro"]</p>
+        }
+
+        <form asp-controller="Home" asp-action="IniciarTorneio" method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Nome</th>
+                        <th>Idade</th>
+                        <th>Estilo de Luta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                            <tr>
+                                <td>@(i + 1)</td>
+                                <td>@Model[i].Nome</td>
+                                <td>@Model[i].Idade</td>
+                                <td>@String.Join(", ", Model[i].GetEstilosDeLutaList())</td>
+                                <td><input type="checkbox" name="ids" value="@Model[i].Id" /></td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Iniciar Torneio</button>
+        </form>
+
+        <script>
+            var minLutadores = 16;
+            var maxLutadores = 16;
+
+            var form = document.querySelector("form");
+            form.addEventListener("submit", function (event) {
+                var selectedLutadores = form.querySelectorAll("input[type=checkbox]:checked").length;
+                if (selectedLutadores < minLutadores) {
+                    event.preventDefault();
+                    alert("O mínimo de lutadores é " + minLutadores + ".");
+                } else if (selectedLutadores > maxLutadores) {
+                    event.preventDefault();
+                    alert("O máximo de lutadores é " + maxLutadores + ".");
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

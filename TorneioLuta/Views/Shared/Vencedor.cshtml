@@ -1,0 +1,27 @@
+﻿@model TorneioLuta.Models.Lutador
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="~/css/site.css" /> 
+    <style>
+        /* Definição da classe para a imagem de fundo */
+        .background-image {
+            background-image: url('/FundoTela/img/fundotela.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body class="background-image">
+    <div class="container">
+        <h2>Vencedor do Torneio</h2>
+
+        <div>
+            <p>O vencedor do torneio é: @Model.Nome</p>
+            <!-- Aqui você pode exibir outros detalhes do vencedor -->
+        </div>
+    </div>
+</body>
+</html>
